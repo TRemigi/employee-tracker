@@ -3,6 +3,7 @@ const connection = require('./db/database');
 const PORT = process.env.PORT || 3000;
 const app = express();
 const apiRoutes = require('./apiRoutes');
+const employeeTracker = require('./public/app');
 
 // express middleware
 app.use(express.urlencoded({
@@ -25,4 +26,6 @@ app.get('/', (req, res) => {
 // start server after DB connection
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
+
+        employeeTracker();
     });
