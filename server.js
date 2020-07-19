@@ -3,7 +3,7 @@ const connection = require('./db/database');
 const PORT = process.env.PORT || 3000;
 const app = express();
 const apiRoutes = require('./apiRoutes');
-const employeeTracker = require('./public/app');
+const employeeTracker = require('./app');
 
 // express middleware
 app.use(express.urlencoded({
@@ -20,12 +20,19 @@ app.use((req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.json({ message: 'success' });
+    res.json({
+        message: 'success'
+    });
 });
 
 // start server after DB connection
+connection.connect(err => {
+    if (err) throw err;
+    console.log('connected as id ' + connection.threadId + '\n');
+
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
 
         employeeTracker();
     });
+});
