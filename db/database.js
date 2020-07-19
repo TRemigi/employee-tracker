@@ -8,9 +8,9 @@ const connection = mysql.createConnection({
     database: 'employees_DB'
 });
 
-db.connect(err => {
+connection.connect(err => {
     if (err) throw err;
-    console.log('connected as id ' + db.threadId + '\n');
+    console.log('connected as id ' + connection.threadId + '\n');
     
   });
 
