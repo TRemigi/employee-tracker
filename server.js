@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require('./db/database');
+const connection = require('./db/database');
 const PORT = process.env.PORT || parseInt(process.env.port);
 const app = express();
 const apiRoutes = require('./apiRoutes');
@@ -21,7 +21,7 @@ app.use((req, res) => {
 
 
 // start server after DB connection
-db.on('ready', () => {
+connection.on('ready', () => {
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
     });

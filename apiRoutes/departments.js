@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db/database');
+const connection = require('../db/database');
 
 router.get('/departments', (req, res) => {
     const sql = `SELECT * FROM departments`;
     const params = [];
 
-    db.execute(
+    connection.execute(
         'sql', params,
         function (err, results) {
             if (err) {
