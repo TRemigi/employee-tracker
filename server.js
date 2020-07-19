@@ -23,8 +23,6 @@ app.get('/', (req, res) => {
 });
 
 // start server after DB connection
-connection.on('start', () => {
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
     });
-});
