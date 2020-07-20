@@ -19,12 +19,6 @@ app.use((req, res) => {
     res.status(404).end();
 });
 
-app.get('/', (req, res) => {
-    res.json({
-        message: 'success'
-    });
-});
-
 // start server after DB connection
 connection.connect(err => {
     if (err) throw err;

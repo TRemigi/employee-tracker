@@ -22,21 +22,47 @@ router.get('/employees', (req, res) => {
     ORDER BY d.id;`;
     const params = [];
 
-    connection.execute(
+    connection.query(
         sql, params,
         function (err, results) {
             if (err) {
                 res.status(400).json({
                     error: err.message
                 });
+                console.log(`Error: ${err.message}`)
                 return;
             }
             res.json({
                 message: 'success',
                 data: results
             });
+        }
+    );
+});
 
-            console.table(results);
+// get managers
+router.get('/managers', (req, res) => {
+    const sql = `SELECT e.id, 
+    e.first_name, 
+    e.last_name 
+    FROM employees e 
+    WHERE e.manager_id IS NULL;`;
+    const params = [];
+
+    connection.query(
+        sql, params,
+        function (err, results) {
+            if (err) {
+                res.status(400).json({
+                    error: err.message
+                });
+                console.log(`Error: ${err.message}`)
+                return;
+            }
+            res.json({
+                message: 'success',
+                data: results
+            });
         }
     );
 });
@@ -53,35 +79,7 @@ router.post('/employees', (req, res) => {
     } = req.body;
     const params = [first_name, last_name, role_id, manager_id];
 
-    connection.execute(
-        sql, params,
-        function (err, results) {
-            if (err) {
-                res.status(400).json({
-                    error: err.message
-                });
-                console.log(`Employee with name ${first_name} ${last_name} already exists.`);
-                return;
-            }
-            res.json({
-                message: 'success',
-                data: results
-            });
-
-            console.log(`${first_name} ${last_name} added to employees.`);
-        }
-    );
-});
-
-// update employee role
-router.put('/employees/:id', (req, res) => {
-
-    const sql = `UPDATE employees 
-    SET role_id = ?
-    WHERE id = ?`;
-    const params = [req.body.role_id, req.params.id];
-
-    connection.execute(
+    connection.query(
         sql, params,
         function (err, results) {
             if (err) {
@@ -95,8 +93,32 @@ router.put('/employees/:id', (req, res) => {
                 message: 'success',
                 data: results
             });
+        }
+    );
+});
 
-            console.log(`Employee role updated.`)
+// update employee role
+router.put('/employees/:id', (req, res) => {
+
+    const sql = `UPDATE employees 
+    SET role_id = ?
+    WHERE id = ?`;
+    const params = [req.body.role_id, req.params.id];
+
+    connection.query(
+        sql, params,
+        function (err, results) {
+            if (err) {
+                res.status(400).json({
+                    error: err.message
+                });
+                console.log(`Error: ${err.message}`);
+                return;
+            }
+            res.json({
+                message: 'success',
+                data: results
+            });
         }
     );
 });

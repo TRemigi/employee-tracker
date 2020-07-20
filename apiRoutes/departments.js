@@ -11,20 +11,20 @@ router.get('/departments', (req, res) => {
     ORDER BY d.id`;
     const params = [];
 
-    connection.execute(
+    connection.query(
         sql, params,
-        function (err, results) {
+        function (err, rows) {
             if (err) {
                 res.status(400).json({
                     error: err.message
                 });
+                console.log(`Error: ${err.message}`)
                 return;
             }
             res.json({
                 message: 'success',
-                data: results
+                data: rows
             });
-            console.table(results);
         }
     );
 });
@@ -35,22 +35,20 @@ router.post('/departments', (req, res) => {
     const sql = `INSERT INTO departments (name) VALUES (?)`;
     const params = [req.body.name];
 
-    connection.execute(
+    connection.query(
         sql, params,
         function (err, results) {
             if (err) {
                 res.status(400).json({
                     error: err.message
                 });
-                console.log(`${req.body.name} department already exists.`);
+                console.log(`Error: ${err.message}`)
                 return;
             }
             res.json({
                 message: 'success',
                 data: results
             });
-            
-                console.log(`${req.body.name} department added.`);
         }
     );
 });

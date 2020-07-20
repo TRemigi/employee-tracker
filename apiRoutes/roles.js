@@ -6,58 +6,55 @@ const cTable = require('console.table');
 // view all roles
 router.get('/roles', (req, res) => {
     const sql = `select 
-    r.id as ID, 
-    r.title as Title, 
-    d.name as Department, 
-    r.salary as Salary 
+    r.id as id, 
+    r.title as title, 
+    d.name as department, 
+    r.salary as salary 
     from roles r
     left join departments d 
     on r.department_id = d.id 
     ORDER BY d.id`;
     const params = [];
 
-    connection.execute(
+    connection.query(
         sql, params,
         function (err, results) {
             if (err) {
                 res.status(400).json({
                     error: err.message
                 });
+                console.log(`Error: ${err.message}`)
                 return;
             }
             res.json({
                 message: 'success',
                 data: results
             });
-
-            console.table(results);
         }
     );
 });
 
 // add new role
 router.post('/roles', (req, res) => {
-    console.log('Adding a new department...\n');
+    console.log('Adding a new role...\n');
     const sql = `INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)`;
     const { title, salary, department_id } = req.body;
     const params = [title, salary, department_id];
 
-    connection.execute(
+    connection.query(
         sql, params,
         function (err, results) {
             if (err) {
                 res.status(400).json({
                     error: err.message
                 });
-                console.log(`${title} role already exists.`);
+                console.log(`Error: ${err.message}`)
                 return;
             }
             res.json({
                 message: 'success',
                 data: results
             });
-            
-                console.log(`${title} role added.`);
         }
     );
 });

@@ -1,9 +1,6 @@
-const inquirer = require('inquirer');
-const prompts = require('./lib/prompts');
-const { startup, displayTitle } = require('./lib/prompts');
+const startup = require('./lib/prompts');
 
 employeeTracker = function () {
-    displayTitle();
     startup();
 };
 
