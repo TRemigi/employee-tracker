@@ -1,5 +1,5 @@
 const startup = require('./lib/prompts');
-
+// start application
 employeeTracker = function () {
     startup();
 };

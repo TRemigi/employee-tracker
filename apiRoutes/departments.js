@@ -31,7 +31,6 @@ router.get('/departments', (req, res) => {
 
 // add new department
 router.post('/departments', (req, res) => {
-    console.log('Adding a new department...\n');
     const sql = `INSERT INTO departments (name) VALUES (?)`;
     const params = [req.body.name];
 

@@ -36,7 +36,6 @@ router.get('/roles', (req, res) => {
 
 // add new role
 router.post('/roles', (req, res) => {
-    console.log('Adding a new role...\n');
     const sql = `INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)`;
     const { title, salary, department_id } = req.body;
     const params = [title, salary, department_id];

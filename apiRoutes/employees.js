@@ -69,7 +69,6 @@ router.get('/managers', (req, res) => {
 
 // add employee
 router.post('/employees', (req, res) => {
-    console.log('Adding a new employee...\n');
     const sql = `INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`;
     const {
         first_name,
